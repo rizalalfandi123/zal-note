@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{ts,tsx}",
-    "./*.html"
-  ],
+  content: ["./src/**/*.{ts,tsx}", "./*.html"],
   theme: {
     container: {
       center: true,
@@ -11,7 +8,6 @@ module.exports = {
       screens: {
         "2xl": "1400px",
       },
-      
     },
     fontFamily: {
       sans: '"Inter", sans-serif',
@@ -72,13 +68,25 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       height: {
-        "dynamic-screen-height": "100dvh",
+        header: "var(--header-height)",
+        "dynamic-screen": "100dvh",
+        "content-without-header": "calc(100% - var(--header-height))",
       },
+      width: {
+        "sidebar-width": "var(--sidebar-width)"
+      },
+      margin: {
+        "sidebar-width": "var(--sidebar-width)"
+      },
+      inset: {
+        "sidebar-width": "var(--sidebar-width)"
+      },
+      transitionProperty: {
+        width: "width",
+        margin: "margin",
+      }
     },
   },
   darkMode: ["class", "data-screen-mode='dark'"],
-  plugins: [
-    require("tailwindcss-animate"),
-    require("@tailwindcss/container-queries"),
-  ],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/container-queries")],
 };

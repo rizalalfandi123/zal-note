@@ -6,6 +6,7 @@ import { pb } from "@/instances";
 
 const App = React.lazy(() => import("@/pages/app"));
 const Notes = React.lazy(() => import("@/pages/notes"));
+const NoteBooks = React.lazy(() => import("@/pages/notebooks"));
 
 export default function PrivateRoutes() {
   if (!pb.authStore.isValid) {
@@ -31,11 +32,12 @@ export default function PrivateRoutes() {
               </PageWrapper>
             }
           />
+
           <Route
-            index
+            path="notebooks"
             element={
               <PageWrapper>
-                <Notes />
+                <NoteBooks />
               </PageWrapper>
             }
           />

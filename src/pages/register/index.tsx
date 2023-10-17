@@ -27,12 +27,7 @@ export default function Register() {
 
   return (
     <div className="h-full flex justify-center items-center p-2">
-      <div
-        className={cn(
-          "w-full p-2 space-y-6",
-          "@2xl/root:px-4 @2xl/root:py-8 @2xl/root:w-96 @2xl/root:border @2xl/root:rounded-lg"
-        )}
-      >
+      <div className={cn("w-full p-2 space-y-6", "md:px-4 md:py-8 md:w-96 md:border md:rounded-lg")}>
         <div className="text-center space-y-3">
           <h2 className="font-medium text-2xl">Register new account</h2>
 
