@@ -15,7 +15,7 @@ export default function Header({ className, ...props }: HeaderProps) {
 
   return (
     <header className={cn("p-2 flex justify-between items-center border-b", "md:py-4", className)} {...props}>
-      <Sheet>
+      <Sheet open={uiData.isShowDrawerNavbar} onOpenChange={nextStatus => setUiData({...uiData, isShowDrawerNavbar: nextStatus})}>
         <SheetTrigger asChild>
           <Button size="icon-sm" variant="outline" className="md:hidden">
             <Menu />
@@ -35,7 +35,7 @@ export default function Header({ className, ...props }: HeaderProps) {
         </SheetContent>
       </Sheet>
 
-      <Button size="icon-sm" variant="outline" className="hidden md:flex" onClick={toggleNavbar}>
+      <Button size="icon" variant="outline" className="hidden md:flex" onClick={toggleNavbar}>
         <Menu />
       </Button>
     </header>

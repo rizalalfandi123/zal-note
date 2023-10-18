@@ -6,6 +6,8 @@ import { pb } from "@/instances";
 
 const App = React.lazy(() => import("@/pages/app"));
 const Notes = React.lazy(() => import("@/pages/notes"));
+const Tags = React.lazy(() => import("@/pages/tags"));
+const Favorites = React.lazy(() => import("@/pages/favorites"));
 const NoteBooks = React.lazy(() => import("@/pages/notebooks"));
 
 export default function PrivateRoutes() {
@@ -34,10 +36,28 @@ export default function PrivateRoutes() {
           />
 
           <Route
+            path="tags"
+            element={
+              <PageWrapper>
+                <Tags />
+              </PageWrapper>
+            }
+          />
+
+          <Route
             path="notebooks"
             element={
               <PageWrapper>
                 <NoteBooks />
+              </PageWrapper>
+            }
+          />
+
+          <Route
+            path="favorites"
+            element={
+              <PageWrapper>
+                <Favorites />
               </PageWrapper>
             }
           />

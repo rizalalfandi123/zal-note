@@ -73,13 +73,16 @@ module.exports = {
         "content-without-header": "calc(100% - var(--header-height))",
       },
       width: {
-        "sidebar-width": "var(--sidebar-width)"
+        "navbar-width": "var(--navbar-width)",
+        "mini-navbar-width": "var(--mini-navbar-width)",
       },
       margin: {
-        "sidebar-width": "var(--sidebar-width)"
+        "navbar-width": "var(--navbar-width)",
+        "mini-navbar-width": "var(--mini-navbar-width)",
       },
       inset: {
-        "sidebar-width": "var(--sidebar-width)"
+        "navbar-width": "var(--navbar-width)",
+        "mini-navbar-width": "var(--mini-navbar-width)",
       },
       transitionProperty: {
         width: "width",

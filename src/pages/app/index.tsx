@@ -11,13 +11,16 @@ export default function App() {
   return (
     <>
       <Header
-        className={cn("h-header transition-margin duration-500", uiData.isShowNavbar ? "md:ml-sidebar-width" : "ml-0")}
+        className={cn(
+          "h-header transition-margin duration-500",
+          uiData.isShowNavbar ? (uiData.isMiniNavbar ? "md:ml-mini-navbar-width" : "md:ml-navbar-width") : "ml-0"
+        )}
       />
 
       <main
         className={cn(
           "p-2 h-content-without-header transition-margin duration-500",
-          uiData.isShowNavbar ? "md:ml-sidebar-width" : "ml-0"
+          uiData.isShowNavbar ? (uiData.isMiniNavbar ? "md:ml-mini-navbar-width" : "md:ml-navbar-width") : "ml-0"
         )}
       >
         <Outlet />

@@ -1,7 +1,8 @@
 import { buttonVariants } from "@/components/button";
 import { cn } from "@/helpers";
-import { ScrollIcon, type LucideIcon } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { useUI } from "@/stores";
+import { ScrollIcon, type LucideIcon, ScrollText, Star, Hash } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export interface NavbarItem {
   label: string;
@@ -16,23 +17,35 @@ const navbarItems: Array<NavbarItem> = [
     pathname: "/app/notes",
   },
   {
-    icon: ScrollIcon,
+    icon: ScrollText,
     label: "Notebooks",
     pathname: "/app/notebooks",
   },
   {
-    icon: ScrollIcon,
+    icon: Star,
     label: "Favorites",
-    pathname: "/favorites",
+    pathname: "/app/favorites",
   },
   {
-    icon: ScrollIcon,
+    icon: Hash,
     label: "Tags",
-    pathname: "/tags",
+    pathname: "/app/tags",
   },
 ];
 
 export default function NavbarList() {
+  const [uiState, setUiState] = useUI();
+
+  const navigate = useNavigate();
+
+  const handleNavItemClick: (destination: string) => React.MouseEventHandler<HTMLAnchorElement> =
+    (destination) => (event) => {
+      event.preventDefault();
+
+      navigate(destination);
+      setUiState({ ...uiState, isShowDrawerNavbar: false });
+    };
+
   return (
     <ul className="space-y-2">
       {navbarItems.map(({ icon: Icon, label, pathname }) => {
@@ -41,10 +54,19 @@ export default function NavbarList() {
             <NavLink
               to={pathname}
               className={({ isActive }) =>
-                cn(buttonVariants({ variant: isActive ? "default" : "ghost" }), "w-full justify-start px-2")
+                cn(
+                  buttonVariants({
+                    variant: isActive ? "default" : "ghost",
+                    size: uiState.isMiniNavbar ? "icon" : "default",
+                  }),
+                  uiState.isMiniNavbar ? "justify-center" : "justify-start",
+                  "w-full px-2"
+                )
               }
+              onClick={handleNavItemClick(pathname)}
             >
-              <Icon className="inline-block mr-2 w-5 h-5" /> {label}
+              <Icon className={cn("mr-2 inline-flex w-5 h-5", { "mr-0": uiState.isMiniNavbar })} />{" "}
+              <span className={cn({ "md:hidden": uiState.isMiniNavbar })}>{label}</span>
             </NavLink>
           </li>
         );

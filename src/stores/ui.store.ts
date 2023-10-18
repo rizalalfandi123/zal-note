@@ -3,11 +3,13 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 export interface UIState {
   isShowNavbar: boolean;
   isMiniNavbar: boolean;
+  isShowDrawerNavbar: boolean;
 }
 
 const initialState: UIState = {
   isShowNavbar: true,
   isMiniNavbar: false,
+  isShowDrawerNavbar: false
 };
 
 const queryKey = ["UI_STORE"];
