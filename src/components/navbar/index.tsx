@@ -23,7 +23,7 @@ export default function Navbar() {
         <NavbarList />
 
         <Button
-          size="icon"
+          size="icon-sm"
           variant="outline"
           className={cn("absolute bottom-2", uiData.isMiniNavbar ? "right-px" : "right-2")}
           onClick={toggleMiniNavbar}
