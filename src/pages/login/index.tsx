@@ -29,7 +29,7 @@ export default function Login() {
   const { mutate: login, isPending } = useLoginUser({
     onSuccess: () => {
       navigate("/app/notes");
-      form.reset()
+      form.reset();
     },
     onError: () => {
       toast.error("Failed to login");
@@ -39,11 +39,9 @@ export default function Login() {
   const loginWithGoogle = async () => {
     pb.authStore.clear();
 
-    const res = await pb.collection("users").authWithOAuth2({ provider: "google" });
+    await pb.collection("users").authWithOAuth2({ provider: "google" });
 
-    console.log({ res })    
-
-    // navigate("/app/notes");
+    navigate("/app/notes");
   };
 
   React.useEffect(() => {
