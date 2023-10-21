@@ -8,7 +8,6 @@ const Home = React.lazy(() => import("@/pages/home"));
 
 export default function PublicRoutes() {
   return (
-    <>
       <Routes>
         <Route
           path="/"
@@ -21,6 +20,5 @@ export default function PublicRoutes() {
 
         {...authRoutes}
       </Routes>
-    </>
   );
 }

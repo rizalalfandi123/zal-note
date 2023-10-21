@@ -1,12 +1,17 @@
 import Header from "@/components/header";
 import Navbar from "@/components/navbar";
 
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { cn } from "@/helpers";
 import { useUI } from "@/stores";
+import { pb } from "@/instances";
 
 export default function App() {
   const [uiData] = useUI();
+
+  if (!pb.authStore.isValid) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>

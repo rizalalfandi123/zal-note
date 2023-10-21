@@ -39,9 +39,11 @@ export default function Login() {
   const loginWithGoogle = async () => {
     pb.authStore.clear();
 
-    await pb.collection("users").authWithOAuth2({ provider: "google" });
+    const res = await pb.collection("users").authWithOAuth2({ provider: "google" });
 
-    navigate("/app/notes");
+    console.log({ res })    
+
+    // navigate("/app/notes");
   };
 
   React.useEffect(() => {
