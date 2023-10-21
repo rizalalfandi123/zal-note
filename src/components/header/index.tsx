@@ -1,10 +1,11 @@
 import Button from "@/components/button";
 import NavbarList from "@/components/navbar/navbar-list";
+import UserMenu from "./user-menu";
 
 import { ChevronRight, Menu, Moon, Sun } from "lucide-react";
 import { cn } from "@/helpers";
-import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/sheet";
 import { useUI } from "@/stores";
+import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/sheet";
 
 interface HeaderProps extends React.ComponentProps<"header"> {}
 
@@ -48,10 +49,12 @@ export default function Header({ className, ...props }: HeaderProps) {
         </Button>
       </div>
 
-      <div id="right-content">
+      <div id="right-content" className="flex gap-2">
         <Button size="icon-sm" variant="ghost" onClick={toggleDarkMode}>
           <SreenModeIcon />
         </Button>
+
+        <UserMenu />
       </div>
     </header>
   );

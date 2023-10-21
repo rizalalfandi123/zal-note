@@ -1,14 +1,17 @@
+import toast from "react-hot-toast";
 import RegisterForm from "./register-form";
 import Button from "@/components/button";
 
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/helpers";
-import { pb } from "@/instances";
 import { registerSchema, type RegisterFormData } from "./register.schema";
+import { useRegisterUser } from "@/services";
 
 export default function Register() {
+  const navigate = useNavigate();
+
   const form = useForm<RegisterFormData>({
     defaultValues: {
       email: "",
@@ -18,12 +21,15 @@ export default function Register() {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = async (data: RegisterFormData) => {
-    // console.log({ data });
-    await pb
-      .collection("users")
-      .create({ email: data.email, password: data.password, passwordConfirm: data.confirm_password });
-  };
+  const { mutate: register, isPending } = useRegisterUser({
+    onSuccess: (_res, formData) => {
+      navigate("/login", { state: formData });
+      form.reset();
+    },
+    onError: () => {
+      toast.error("Failed to register");
+    },
+  });
 
   return (
     <div className="h-full flex justify-center items-center p-2">
@@ -34,7 +40,7 @@ export default function Register() {
           <p className="text-sm text-muted-foreground">Fill the form to create your account</p>
         </div>
 
-        <RegisterForm controller={form} onSubmit={form.handleSubmit(onSubmit)} />
+        <RegisterForm isLoading={isPending} controller={form} onSubmit={form.handleSubmit((data) => register(data))} />
 
         <p className="text-xs text-center">
           Already an account ?

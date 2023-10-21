@@ -1,16 +1,23 @@
+import React from "react";
 import LoginForm from "./login-form";
 import LabelSeparator from "@/components/label-separator";
 import Button from "@/components/button";
+import toast from "react-hot-toast";
 
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/helpers";
 import { Google } from "@/components/icons";
 import { pb } from "@/instances";
 import { loginSchema, type LoginFormData } from "./login.schema";
+import { useLoginUser } from "@/services";
 
 export default function Login() {
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
   const form = useForm<LoginFormData>({
     defaultValues: {
       email: "",
@@ -19,14 +26,30 @@ export default function Login() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginFormData) => {
-    await pb.collection("users").authWithPassword(data.email, data.password);
-  };
+  const { mutate: login, isPending } = useLoginUser({
+    onSuccess: () => {
+      navigate("/app/notes");
+      form.reset()
+    },
+    onError: () => {
+      toast.error("Failed to login");
+    },
+  });
 
   const loginWithGoogle = async () => {
     pb.authStore.clear();
+
     await pb.collection("users").authWithOAuth2({ provider: "google" });
+
+    navigate("/app/notes");
   };
+
+  React.useEffect(() => {
+    if (location.state) {
+      form.setValue("email", location.state.email);
+      form.setValue("password", location.state.password);
+    }
+  }, []);
 
   return (
     <div className="h-full flex justify-center items-center p-2">
@@ -37,7 +60,7 @@ export default function Login() {
           <p className="text-sm text-muted-foreground">Choose your method to login into your account</p>
         </div>
 
-        <LoginForm controller={form} onSubmit={form.handleSubmit(onSubmit)} />
+        <LoginForm controller={form} onSubmit={form.handleSubmit((data) => login(data))} isLoading={isPending} />
 
         <p className="text-xs text-center">
           Dont have an account ?

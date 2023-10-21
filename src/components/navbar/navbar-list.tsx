@@ -59,13 +59,14 @@ export default function NavbarList() {
                     variant: isActive ? "default" : "ghost",
                     size: uiState.isMiniNavbar ? "icon" : "default",
                   }),
-                  uiState.isMiniNavbar ? "justify-center" : "justify-start",
+                  "justify-start",
+                  uiState.isMiniNavbar && "md:justify-center",
                   "w-full px-2"
                 )
               }
               onClick={handleNavItemClick(pathname)}
             >
-              <Icon className={cn("mr-2 inline-flex w-5 h-5", { "mr-0": uiState.isMiniNavbar })} />{" "}
+              <Icon className={cn("mr-2 inline-flex w-5 h-5", { "md:mr-0": uiState.isMiniNavbar })} />{" "}
               <span className={cn({ "md:hidden": uiState.isMiniNavbar })}>{label}</span>
             </NavLink>
           </li>
